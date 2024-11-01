@@ -2,35 +2,19 @@ package main
 
 import (
 	rl "github.com/gen2brain/raylib-go/raylib"
-	"physx/math/vars"
-	"physx/math/vector"
+	"physx/src"
 )
 
-var position = vector.New(10, 20)
-var velocity = vector.New(2, 1)
-
 func main() {
-	rl.InitWindow(vars.WindowWidth, vars.WindowHeight, "2D Physics engine")
-	rl.SetTargetFPS(60)
+	app := src.NewApplication()
+
+	app.Setup()
 
 	for !rl.WindowShouldClose() {
-		rl.BeginDrawing()
-		rl.ClearBackground(rl.Black)
-
-		render()
-		update()
-
-		rl.DrawFPS(10, 10)
-		rl.EndDrawing()
+		app.Input()
+		app.Update()
+		app.Render()
 	}
 
-	rl.CloseWindow()
-}
-
-func render() {
-	position.Draw(vars.YELLOW)
-}
-
-func update() {
-	position.Add(velocity)
+	app.Destroy()
 }
