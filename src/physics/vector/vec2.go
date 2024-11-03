@@ -1,4 +1,4 @@
-package physics
+package vector
 
 import (
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -81,8 +81,8 @@ func (v *Vec2) UnitVector() *Vec2 {
 	mag := v.Magnitude()
 
 	if mag != 0.0 {
-		result.X /= mag
-		result.Y /= mag
+		result.X = v.X / mag
+		result.Y = v.Y / mag
 	}
 
 	return &result
@@ -92,14 +92,22 @@ func (v *Vec2) UnitVector() *Vec2 {
 //// Static Methods
 /////////////////////////////////////////////////
 
-func Add(a, b *Vec2) Vec2 {
-	return Vec2{a.X + b.X, a.Y + b.Y}
+func Add(a, b *Vec2) *Vec2 {
+	return &Vec2{a.X + b.X, a.Y + b.Y}
+}
+
+func Mul(a *Vec2, b float64) *Vec2 {
+	return &Vec2{a.X * b, a.Y * b}
+}
+
+func Div(a *Vec2, b float64) *Vec2 {
+	return &Vec2{a.X / b, a.Y / b}
 }
 
 func Dot(a, b *Vec2) float64 {
 	return a.X*b.X + a.Y*b.Y
 }
 
-func Sub(a, b *Vec2) Vec2 {
-	return Vec2{a.X - b.X, a.Y - b.Y}
+func Sub(a, b *Vec2) *Vec2 {
+	return &Vec2{a.X - b.X, a.Y - b.Y}
 }
